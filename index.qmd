@@ -1,5 +1,5 @@
 ---
-title: "Team XXX"
+title: "R’a-beni-lütfen"
 sidebar: false 
 ---
 
@@ -9,16 +9,21 @@ Please stay tuned to follow our project activities.
 
 This is our template.
 
-# Team Members
+# R’a-beni-lütfen
 
-1.  [Edin_Džeko](https://tr.wikipedia.org/wiki/Edin_D%C5%BEeko)
+1.  Enes Furkan Altın 2220469011
 
-2.  [Dušan Tadić](https://tr.wikipedia.org/wiki/Du%C5%A1an_Tadi%C4%87)
+2.  Mehmet Öksüzoğlu 2220469036
 
-3.  [Frederico Rodrigues de Paula Santos](https://tr.wikipedia.org/wiki/Fred_(1993_do%C4%9Fumlu_futbolcu))
+3.  Arda Yeniçulha 2220469061
 
-4.  [Sebastian Szymański](https://tr.wikipedia.org/wiki/Sebastian_Szyma%C5%84ski)
+Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 
-# Project Topic
-
+Project Description: This study aims to investigate the correlation between USD/TRY exchange rate movements and the performance of various sectoral indices in Turkey. We are specifically analyzing whether currency volatility serves as a significant driver for returns in the BIST 100, Electricity (XU:ELEKT), and Industrial (XU:SIN) sectors.
 # Data Set
+#Key Takeaways
+Research Focus: We are analyzing the quantitative relationship between the USD/TRY exchange rate and major BIST sectoral indices to identify potential sensitivities.
+
+Data Sources: Our analysis integrates financial data from Yahoo Finance and exchange rate statistics from the Central Bank of the Republic of Turkey (EVDS).
+
+Objective: The final report will provide insights into how macroeconomic volatility influences market resilience and sectoral stock performance in the Turkish equity market.

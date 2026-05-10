@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "xxx' Project Lab"
+  title: "R'a-beni-lütfen"
   navbar:
     search: true
     left:
@@ -17,12 +17,12 @@ website:
             
     tools:
       - icon: github
-        href: https://twitter.com
+        href: https://github.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen
 
   page-navigation: true
   back-to-top-navigation: true
   page-footer:
-    center: "Hacettepe IE - EMU 430 - Fall 2024" 
+    center: "Hacettepe IE - EMU 430 - Fall 2026" 
     border: true
 format:
   html:
@@ -32,7 +32,7 @@ format:
       light: simplex 
       dark: cyborg
     css: styles.css
-
+    code-fold: true
 
 editor: visual
 

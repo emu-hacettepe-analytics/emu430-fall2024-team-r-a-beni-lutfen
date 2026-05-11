@@ -16,7 +16,29 @@ title: "Analysis"
 
 # Period-Based Analysis
 
-::: panel-tabset
+:::: panel-tabset
+### **Detailed Graphical Analysis**
+
+Bu bölümde, 2006-2026 yılları arasındaki 5'er yıllık periyotlar halinde hazırlanan kümülatif büyüme, günlük logaritmik getiriler, saçılım grafikleri (USD/TRY vs BIST) ve dolar bazlı endeks karşılaştırmaları yer almaktadır.
+
+::: {layout-ncol="1"}
+#### **Period 1: 2006 - 2010 Analysis**
+
+<img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik1.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik2.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik3.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik4.jpeg" width="100%"/>
+
+#### **Period 2: 2011 - 2015 Analysis**
+
+<img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik5.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik6.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik7.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik8.jpeg" width="100%"/>
+
+#### **Period 3: 2016 - 2020 Analysis**
+
+<img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik9.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik10.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik11.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik12.jpeg" width="100%"/>
+
+#### **Period 4: 2021 - Present Analysis**
+
+<img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik13.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik14.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik15.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik16.jpeg" width="100%"/>
+:::
+
 ## 2006-2010
 
 Below are the visual insights for the first analysis window:
@@ -40,4 +62,4 @@ Market dynamics during the currency shocks of late 2010s:
 Recent structural shifts and capital preservation trends:
 
 [![Cumulative % Growth (2021-2026)](grafik13.png)](https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik13.jpeg) [![Daily Volatility & Shocks (2021-2026)](grafik14.png)](https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik14.jpeg) [![USD/TRY vs BIST Scatter (2021-2026)](grafik15.png)](https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik15.jpeg) [![USD-Denominated BIST vs USD/TRY Parity (2021-2026)](grafik16.png)](https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik16.jpeg)
-:::
+::::

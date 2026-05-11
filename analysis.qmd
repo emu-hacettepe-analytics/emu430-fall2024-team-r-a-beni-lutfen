@@ -15,22 +15,22 @@ format:
 
 ------------------------------------------------------------------------
 
-## **Detailed Graphical Analysis**
+# **Detailed Graphical Analysis**
 
 Aşağıdaki başlıklar yan menüden (TOC) takip edilebilir. Her periyot için kümülatif büyüme, volatilite ve dolar bazlı performans grafikleri yer almaktadır.
 
-### **Period 1: 2006 - 2010 Analysis**
+## **Period 1: 2006 - 2010 Analysis**
 
 <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik1.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik2.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik3.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik4.jpeg" width="100%"/>
 
-### **Period 2: 2011 - 2015 Analysis**
+## **Period 2: 2011 - 2015 Analysis**
 
 <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik5.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik6.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik7.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik8.jpeg" width="100%"/>
 
-### **Period 3: 2016 - 2020 Analysis**
+## **Period 3: 2016 - 2020 Analysis**
 
 <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik9.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik10.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik11.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik12.jpeg" width="100%"/>
 
-### **Period 4: 2021 - Present Analysis**
+## **Period 4: 2021 - Present Analysis**
 
 <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik13.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik14.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik15.jpeg" width="100%"/> <img src="https://raw.githubusercontent.com/emu-hacettepe-analytics/emu430-fall2024-team-r-a-beni-lutfen/124ea0b01e459faf8931b2e927e05da9a08005df/docs/grafik16.jpeg" width="100%"/>

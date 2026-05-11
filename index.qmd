@@ -7,7 +7,7 @@ sidebar: false
 
 2.  Mehmet Öksüzoğlu 2220469036 [(github)](https://github.com/mehmetokszgl)
 
-3.  Arda Yeniçulha 2220469061 \[github\]()
+3.  Arda Yeniçulha 2220469061 [(github)](https://github.com/yeniculhamehmetarda)
 
 Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 

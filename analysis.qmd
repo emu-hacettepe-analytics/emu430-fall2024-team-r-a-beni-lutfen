@@ -2,21 +2,17 @@
 title: "Analysis"
 ---
 
-# Key Takeaways
+# **Key Takeaways**
 
-Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
+-   **20-Year Historical Scope:** This study analyzes the quantitative relationship between the USD/TRY exchange rate and BIST indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to detect structural shifts.
 
-The 2011–2020 Depreciation Cycle: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (as shown by the USD/TRY parity doubling and tripling) was generally correlated with negative USD-denominated returns, with the Banking sector consistently being the most vulnerable to exchange rate shocks.
+-   **The Regime-Dependent Banking Pivot (Your Core Insight):** The Banking sector (`XBANK.IS`) exhibits a strong regime-dependent behavior. Under stable/tight monetary regimes where the exchange rate is controlled, Banking significantly outperforms other sectors due to predictable margins. Conversely, during rapid currency depreciation or highly volatile exchange rate regimes, Banking severely underperforms and lags behind other indices due to balance sheet shocks.
 
-Structural Divergence (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite the USD/TRY parity increasing six-fold (from 100 to over 600), BIST indices provided a robust hedge against hyper-depreciation, yielding positive USD-denominated returns for the first time in a decade.
+-   **The 2011–2020 Depreciation Drag:** During the 2011–2015 and 2016–2020 periods, significant currency depreciation (USD/TRY doubling and tripling) was highly correlated with negative USD-denominated returns, leaving the vulnerable Banking sector at its historical lows.
 
-Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typically offered more stability across all cycles, the Banking sector (XBANK.IS) displayed extreme volatility but showed a surprising recovery in USD terms during the 2021–2026 period.
+-   **Structural Break & Equity Hedge (2021–2026):** In a historical anomaly, the most recent period (2021–2026) shows that despite a massive six-fold increase in USD/TRY (from 100 to over 600), BIST indices broke historical patterns and served as a robust hedge against hyper-depreciation, yielding positive USD-denominated returns.
 
-Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.
-
-#Correlation Matrix (full period) cat("\n?????? Full-Period Log-Return Correlation Matrix ??????\n") cor_mat \<- cor(return_data\[, ret_cols\], use = "complete.obs") rownames(cor_mat) \<- colnames(cor_mat) \<- gsub("\^Ret\_", "", rownames(cor_mat)) print(round(cor_mat, 4))
-
-usd_cor_row \<- grep("USD.TRY", rownames(cor_mat), value = TRUE)\[1\] cat("\n\>\> USD/TRY correlations with BIST indices:\n") usd_cors \<- sort(cor_mat\[usd_cor_row, \], decreasing = TRUE) print(round(usd_cors\[names(usd_cors) != usd_cor_row\], 4)) The matrix below shows the overall 20-year correlation between USD/TRY returns and BIST indices.
+-   **Industrial Resilience vs. Banking Volatility:** Across all analyzed cycles, the Industrial index (`XUSIN.IS`) consistently offered the most stable hedge against currency inflation, while the Banking sector (`XBANK.IS`) remained the most volatile but staged a dramatic valuation recovery in USD terms post-2021.
 
 # Period-Based Analysis
 
@@ -25,7 +21,7 @@ usd_cor_row \<- grep("USD.TRY", rownames(cor_mat), value = TRUE)\[1\] cat("\n\>\
 
 Below are the visual insights for the first analysis window:
 
-![Cumulative % Growth (2006-2010)](grafik1.png) ![Daily Volatility & Shocks (2006-2010)](grafik2.png) ![USD/TRY vs BIST Scatter (2006-2010)](grafik3.png) ![USD-Denominated BIST vs USD/TRY Parity (2006-2010)](grafik4.png)
+![Cumulative % Growth (2006-2010)](images/Rplot.png) ![Daily Volatility & Shocks (2006-2010)](grafik2.png) ![USD/TRY vs BIST Scatter (2006-2010)](grafik3.png) ![USD-Denominated BIST vs USD/TRY Parity (2006-2010)](grafik4.png)
 
 ## 2011-2015
 

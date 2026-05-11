@@ -287,7 +287,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#period-based-analysis" id="toc-period-based-analysis" class="nav-link active" data-scroll-target="#period-based-analysis">Period-Based Analysis</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link active" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#period-based-analysis" id="toc-period-based-analysis" class="nav-link" data-scroll-target="#period-based-analysis">Period-Based Analysis</a></li>
   </ul>
 </nav>
 </nav>
@@ -318,13 +319,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>#Key Takeaways Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.</p>
+<section id="key-takeaways" class="level1">
+<h1>Key Takeaways</h1>
+<p>Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.</p>
 <p>The 2011–2020 Depreciation Cycle: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (as shown by the USD/TRY parity doubling and tripling) was generally correlated with negative USD-denominated returns, with the Banking sector consistently being the most vulnerable to exchange rate shocks.</p>
 <p>Structural Divergence (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite the USD/TRY parity increasing six-fold (from 100 to over 600), BIST indices provided a robust hedge against hyper-depreciation, yielding positive USD-denominated returns for the first time in a decade.</p>
 <p>Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typically offered more stability across all cycles, the Banking sector (XBANK.IS) displayed extreme volatility but showed a surprising recovery in USD terms during the 2021–2026 period.</p>
 <p>Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.</p>
 <p>#Correlation Matrix (full period) cat(“?????? Full-Period Log-Return Correlation Matrix ??????”) cor_mat &lt;- cor(return_data[, ret_cols], use = “complete.obs”) rownames(cor_mat) &lt;- colnames(cor_mat) &lt;- gsub(“^Ret_”, ““, rownames(cor_mat)) print(round(cor_mat, 4))</p>
 <p>usd_cor_row &lt;- grep(“USD.TRY”, rownames(cor_mat), value = TRUE)[1] cat(“&gt;&gt; USD/TRY correlations with BIST indices:”) usd_cors &lt;- sort(cor_mat[usd_cor_row, ], decreasing = TRUE) print(round(usd_cors[names(usd_cors) != usd_cor_row], 4)) The matrix below shows the overall 20-year correlation between USD/TRY returns and BIST indices.</p>
+</section>
 <section id="period-based-analysis" class="level1">
 <h1>Period-Based Analysis</h1>
 <div class="tabset-margin-container"></div><div class="panel-tabset">

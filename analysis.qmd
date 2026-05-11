@@ -1,9 +1,48 @@
 ---
 title: "Analysis"
+#Key Takeaways
+Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
+
+The 2011–2020 Depreciation Cycle: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (as shown by the USD/TRY parity doubling and tripling) was generally correlated with negative USD-denominated returns, with the Banking sector consistently being the most vulnerable to exchange rate shocks.
+
+Structural Divergence (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite the USD/TRY parity increasing six-fold (from 100 to over 600), BIST indices provided a robust hedge against hyper-depreciation, yielding positive USD-denominated returns for the first time in a decade.
+
+Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typically offered more stability across all cycles, the Banking sector (XBANK.IS) displayed extreme volatility but showed a surprising recovery in USD terms during the 2021–2026 period.
+
+Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.
+
+#Correlation Matrix (full period)
+cat("\n?????? Full-Period Log-Return Correlation Matrix ??????\n")
+cor_mat <- cor(return_data[, ret_cols], use = "complete.obs")
+rownames(cor_mat) <- colnames(cor_mat) <- gsub("^Ret_", "", rownames(cor_mat))
+print(round(cor_mat, 4))
+
+usd_cor_row <- grep("USD.TRY", rownames(cor_mat), value = TRUE)[1]
+cat("\n>> USD/TRY correlations with BIST indices:\n")
+usd_cors <- sort(cor_mat[usd_cor_row, ], decreasing = TRUE)
+print(round(usd_cors[names(usd_cors) != usd_cor_row], 4))
+  The matrix below shows the overall 20-year correlation between USD/TRY returns and BIST indices.
+
+# Period-Based Analysis
+
+::: {.panel-tabset}
+
+## 2006-2010
+(Bu kısma Mehmet'in kodundan bu periyoda ait grafikleri koy)
+
+## 2011-2015
+(Buraya ilgili grafikleri koy)
+
+## 2016-2020
+(Buraya ilgili grafikleri koy)
+
+## 2021-Present
+(En önemli dönemin grafiklerini buraya koy)
+
+:::
+
+
+
+
 ---
 
-About this site
-
-```{r}
-1 + 1
-```

@@ -3,13 +3,11 @@ title: "R’a-beni-lütfen"
 sidebar: false 
 ---
 
-# R’a-beni-lütfen
-
-1.  Enes Furkan Altın 2220469011 https://github.com/altinefurkan
+1.  Enes Furkan Altın 2220469011 ([github](https://github.com/altinefurkan))
 
 2.  Mehmet Öksüzoğlu 2220469036 [(github)](https://github.com/mehmetokszgl)
 
-3.  Arda Yeniçulha 2220469061 (github linkiniz)
+3.  Arda Yeniçulha 2220469061 \[github\]()
 
 Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 

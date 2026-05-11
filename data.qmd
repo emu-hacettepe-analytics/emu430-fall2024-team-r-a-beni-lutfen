@@ -2,46 +2,102 @@
 title: "Data"
 ---
 
-# PACKAGE BOOTSTRAP 
+## 1. Data Source Selection (Why Only Yahoo Finance?)
 
-required_pkgs \<- c("quantmod", "tidyverse", "lubridate", "patchwork", "scales")
+**The Code:**
 
-invisible(lapply(required_pkgs, function(pkg) { if (!requireNamespace(pkg, quietly = TRUE)) { message("Installing: ", pkg) install.packages(pkg, repos = "[https://cloud.r-project.org",](https://cloud.r-project.org",) quiet = TRUE) } }))
+TICKERS \<- c("TRY=X", "XU100.IS", "XBANK.IS", "XUSIN.IS")
 
-suppressPackageStartupMessages({ library(quantmod) library(tidyverse) library(lubridate) library(patchwork) library(scales) })
+Fetching data using quantmod
 
-cat("All packages loaded.\n")
+prices_lst \<- list()
 
-# PARAMETERS 
+for (t in TICKERS) {
 
-START_DATE \<- as.Date("2006-01-01") END_DATE \<- Sys.Date()
+getSymbols(t, from = START_DATE, to = END_DATE, auto.assign = FALSE)
 
-TICKERS \<- c( "TRY=X", \# USD/TRY exchange rate "XU100.IS", \# BIST 100 "XBANK.IS", \# BIST Banking "XUSIN.IS"\# BIST Industrials )
+\# Extraction of Adjusted Close prices...
 
-LABELS \<- c( "TRY=X" = "USD/TRY", "XU100.IS" = "BIST 100", "XBANK.IS" = "BIST Banking", "XUSIN.IS" = "BIST Industrials" ) #TIME PERIODS \<- list( list(label = "2006-2010", start = as.Date("2006-01-01"), end = as.Date("2010-12-31")), list(label = "2011-2015", start = as.Date("2011-01-01"), end = as.Date("2015-12-31")), list(label = "2016-2020", start = as.Date("2016-01-01"), end = as.Date("2020-12-31")), list(label = "2021-Present", start = as.Date("2021-01-01"), end = END_DATE) #DATA FETCHING fetch_one \<- function(ticker, from, to) { env \<- new.env() result \<- suppressWarnings( tryCatch( getSymbols(ticker, src = "yahoo", from = from, to = to, env = env, auto.assign = TRUE, warnings = FALSE), error = function(e) NULL ) ) if (is.null(result)) { warning(sprintf("Could not fetch %s. Skipping.", ticker)) return(NULL) } xts_obj \<- get(ticker, envir = env) adj_col \<- grep("Adjusted", colnames(xts_obj), value = TRUE) if (length(adj_col) == 0) return(NULL)
+}
 
-col_name \<- gsub("\[\^A-Za-z0-9\]", "\_", ticker) tibble(Date = as.Date(index(xts_obj)), !!col_name := as.numeric(xts_obj\[, adj_col\])) }
+-   **API Stability:** We replaced the TCMB EVDS API with `quantmod` (Yahoo Finance). EVDS frequently suffers from SSL/TLS handshake failures and connection timeouts on Windows.
 
-cat("\nFetching full history from Yahoo Finance...\n")
+<!-- -->
 
-raw_list \<- lapply(TICKERS, function(tk) { cat(sprintf(" Fetching %-12s ... ", tk)) df \<- fetch_one(tk, START_DATE, END_DATE) if (!is.null(df)) cat(sprintf("%d rows\n", nrow(df))) else cat("FAILED\n") df }) names(raw_list) \<- TICKERS raw_list \<- Filter(Negate(is.null), raw_list)
+-   **Consistency:** Fetching all assets (including the USD/TRY exchange rate `TRY=X`) from a single global source ensures identical timestamps and database formats.
 
-if (length(raw_list) \< 2) stop("Fewer than 2 assets fetched. Cannot proceed.") #CLEAN THE DATASET
+-   **10-Year Horizon:** A longer timeframe captures multiple macroeconomic cycles and structural shifts. Yahoo Finance automatically back-adjusts BIST prices for the 2020 denomination (two-zero drop) reform, preserving historical continuity.
 
-price_data \<- purrr::reduce(raw_list, inner_join, by = "Date") \|\> arrange(Date) \|\> drop_na()
+## 2. Multi-Market Synchronization (The `inner_join` Strategy)
 
-# Rename columns to friendly ASCII labels using LABELS map
+**The Code:**
 
-ticker_cols \<- gsub("\[\^A-Za-z0-9\]", "\_", names(LABELS)) \# e.g. "TRY_X" friendly_names \<- unname(LABELS) \# e.g. "USD/TRY" \# Only rename cols that actually exist after merge for (i in seq_along(ticker_cols)) { if (ticker_cols\[i\] %in% colnames(price_data)) { colnames(price_data)\[colnames(price_data) == ticker_cols\[i\]\] \<- friendly_names\[i\] } }
+Merging multiple datasets into a single tibble
 
-price_cols \<- setdiff(colnames(price_data), "Date") usd_try_col \<- price_cols\[grepl("USD/TRY", price_cols, fixed = TRUE)\] bist_cols \<- price_cols\[price_cols != usd_try_col\]
+price_data \<- prices_lst %\>% reduce(inner_join, by = "Date")
 
-cat(sprintf("Full merged data: %d rows x %d columns (%s to %s)\n", nrow(price_data), ncol(price_data), min(price_data$Date), max(price_data$Date))) #LOG RETURNS (full dataset)
+-   **Calendar Mismatch:** Forex (`TRY=X`) trades 24/5 globally and remains open during Turkish local or religious holidays, while Borsa Istanbul (BIST) strictly closes.
 
-return_data \<- price_data \|\> mutate(across(all_of(price_cols), \~ log(. / lag(.)), .names = "Ret\_{.col}")) \|\> slice(-1) \|\> drop_na()
+<!-- -->
 
-ret_cols \<- grep("\^Ret\_", colnames(return_data), value = TRUE) usd_ret_col \<- ret_cols\[grepl("USD.TRY", ret_cols)\]\[1\] bist_ret_cols \<- ret_cols\[ret_cols != usd_ret_col\]
+-   **The Solution:** We used `inner_join` to keep **only the dates common to all assets**. If BIST was closed on a holiday, that day is discarded. This ensures our statistical models compare active trading days only.
 
+## 3. Handling Missing Values (`drop_na`) & Outlier Philosophy
+
+**The Code:**
+
+Ensuring a clean, gap-free matrix
+
+price_data \<- price_data %\>%
+
+drop_na()
+
+-   **No Imputation:** In finance, filling missing values using averages (imputation) or carrying prices forward is highly discouraged. It artificially dampens volatility and biases daily returns. Removing incomplete rows with `drop_na()` is the standard, unbiased approach.
+
+<!-- -->
+
+-   **Keeping Outliers:** While statistical tests flag extreme returns (shocks) as outliers, **we did not delete them**. In finance, outliers represent real market crises and circuit-breakers. Removing them would destroy the exact macro-shocks we aim to study.
+
+## 4. Mathematical Transformation: Logarithmic Returns
+
+**The Code:\
+**Transforming raw prices to stationary log returns
+
+return_data \<- price_data %\>%
+mutate(across(starts_with("Raw\_"),
+\~ log(.x / lag(.x)),
+.names = "Ret\_{.col}")) %\>%
+rename_with(\~ gsub("Ret_Raw\_", "Ret\_", .x)) %\>%
+drop_na()\
 \
-\
-[Download the final processed dataset (.RData)](proje_verisi.RData)
+**Stationarity:** Raw asset prices have random walks and trends, violating the core assumptions of regression and correlation. Logarithmic returns ($R_t = \ln(P_t / P_{t-1})$) stabilize mean and variance, making the time series stationary.
+
+-   **Time Additivity:** Unlike simple percentage returns, the sum of daily log returns over a period exactly equals the total log return of that entire period.
+
+-   **Symmetry:** Log returns are symmetric. A $10\%$ gain followed by a $10\%$ loss returns the asset to its exact starting value, preventing statistical skewness.
+
+## 5. Multi-Scale Normalization (Cumulative Base-100 Returns)
+
+**The Code:**
+
+**pd_norm \<- pd %\>% mutate(across(-Date, \~ (.x / first(.x)) \* 100))**
+
+-   **Scale Incompatibility:** You cannot visually compare USD/TRY (ranging between 1.5 to 32+ TL) with the BIST 100 index (ranging in thousands of points) on the same Y-axis.
+
+-   **The Solution:** We normalized all assets to a **Base-100 index** starting on the first day of each period. This scales all asset growth relative to a common starting line ($Price_{t_0} = 100$), enabling a fair, percentage-based visual comparison.
+
+## 6. Currency Denomination (USD-Denominated BIST)
+
+#### The Code:
+
+BIST100_USD = `XU100.IS` / `TRY=X`
+
+-   **Eliminating the Inflation Illusion:** In high-inflation economies, stock indices in local currency (TRY) almost always trend upward. However, these "rallies" are often nominal illusions driven by currency depreciation.
+
+-   **The Solution:** Dividing BIST prices by the USD/TRY rate reveals the **USD-denominated (real) value** of Turkish equities. This shows whether the market actually grew in global purchasing power or simply inflated.
+
+### Access Our Dataset
+
+You can access and download the fully processed and merged financial dataset used in this project by clicking the link below:
+
+[📥 Download Final Dataset (.RData)](bist_usd_data.RData)

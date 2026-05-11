@@ -316,7 +316,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#rename-columns-to-friendly-ascii-labels-using-labels-map" id="toc-rename-columns-to-friendly-ascii-labels-using-labels-map" class="nav-link active" data-scroll-target="#rename-columns-to-friendly-ascii-labels-using-labels-map">Rename columns to friendly ASCII labels using LABELS map</a></li>
+  <li><a href="#data-source-selection-why-only-yahoo-finance" id="toc-data-source-selection-why-only-yahoo-finance" class="nav-link active" data-scroll-target="#data-source-selection-why-only-yahoo-finance">1. Data Source Selection (Why Only Yahoo Finance?)</a>
+  <ul class="collapse">
+  <li><a href="#multi-market-synchronization-the-inner_join-strategy" id="toc-multi-market-synchronization-the-inner_join-strategy" class="nav-link" data-scroll-target="#multi-market-synchronization-the-inner_join-strategy">2. Multi-Market Synchronization (The <code>inner_join</code> Strategy)</a></li>
+  <li><a href="#handling-missing-values-drop_na-outlier-philosophy" id="toc-handling-missing-values-drop_na-outlier-philosophy" class="nav-link" data-scroll-target="#handling-missing-values-drop_na-outlier-philosophy">3. Handling Missing Values (<code>drop_na</code>) &amp; Outlier Philosophy</a></li>
+  <li><a href="#mathematical-transformation-logarithmic-returns" id="toc-mathematical-transformation-logarithmic-returns" class="nav-link" data-scroll-target="#mathematical-transformation-logarithmic-returns">4. Mathematical Transformation: Logarithmic Returns</a></li>
+  <li><a href="#multi-scale-normalization-cumulative-base-100-returns" id="toc-multi-scale-normalization-cumulative-base-100-returns" class="nav-link" data-scroll-target="#multi-scale-normalization-cumulative-base-100-returns">5. Multi-Scale Normalization (Cumulative Base-100 Returns)</a></li>
+  <li><a href="#currency-denomination-usd-denominated-bist" id="toc-currency-denomination-usd-denominated-bist" class="nav-link" data-scroll-target="#currency-denomination-usd-denominated-bist">6. Currency Denomination (USD-Denominated BIST)</a></li>
+  <li><a href="#access-our-dataset" id="toc-access-our-dataset" class="nav-link" data-scroll-target="#access-our-dataset">Access Our Dataset</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -347,29 +355,95 @@ window.Quarto = {
 </header>
 
 
-<p>#PACKAGE BOOTSTRAP required_pkgs &lt;- c(“quantmod”, “tidyverse”, “lubridate”, “patchwork”, “scales”)</p>
-<p>invisible(lapply(required_pkgs, function(pkg) { if (!requireNamespace(pkg, quietly = TRUE)) { message(“Installing:”, pkg) install.packages(pkg, repos = “<a href="https://cloud.r-project.org%22,">https://cloud.r-project.org”,</a> quiet = TRUE) } }))</p>
-<p>suppressPackageStartupMessages({ library(quantmod) library(tidyverse) library(lubridate) library(patchwork) library(scales) })</p>
-<p>cat(“All packages loaded.”) #PARAMETERS START_DATE &lt;- as.Date(“2006-01-01”) END_DATE &lt;- Sys.Date()</p>
-<p>TICKERS &lt;- c( “TRY=X”, # USD/TRY exchange rate “XU100.IS”, # BIST 100 “XBANK.IS”, # BIST Banking “XUSIN.IS” # BIST Industrials )</p>
-<p>LABELS &lt;- c( “TRY=X” = “USD/TRY”, “XU100.IS” = “BIST 100”, “XBANK.IS” = “BIST Banking”, “XUSIN.IS” = “BIST Industrials” ) #TIME PERIODS &lt;- list( list(label = “2006-2010”, start = as.Date(“2006-01-01”), end = as.Date(“2010-12-31”)), list(label = “2011-2015”, start = as.Date(“2011-01-01”), end = as.Date(“2015-12-31”)), list(label = “2016-2020”, start = as.Date(“2016-01-01”), end = as.Date(“2020-12-31”)), list(label = “2021-Present”, start = as.Date(“2021-01-01”), end = END_DATE) #DATA FETCHING fetch_one &lt;- function(ticker, from, to) { env &lt;- new.env() result &lt;- suppressWarnings( tryCatch( getSymbols(ticker, src = “yahoo”, from = from, to = to, env = env, auto.assign = TRUE, warnings = FALSE), error = function(e) NULL ) ) if (is.null(result)) { warning(sprintf(“Could not fetch %s. Skipping.”, ticker)) return(NULL) } xts_obj &lt;- get(ticker, envir = env) adj_col &lt;- grep(“Adjusted”, colnames(xts_obj), value = TRUE) if (length(adj_col) == 0) return(NULL)</p>
-<p>col_name &lt;- gsub(“[^A-Za-z0-9]”, “_”, ticker) tibble(Date = as.Date(index(xts_obj)), !!col_name := as.numeric(xts_obj[, adj_col])) }</p>
-<p>cat(“full history from Yahoo Finance…”)</p>
-<p>raw_list &lt;- lapply(TICKERS, function(tk) { cat(sprintf(” Fetching %-12s … “, tk)) df &lt;- fetch_one(tk, START_DATE, END_DATE) if (!is.null(df)) cat(sprintf(”%d rows“, nrow(df))) else cat(”FAILED“) df }) names(raw_list) &lt;- TICKERS raw_list &lt;- Filter(Negate(is.null), raw_list)</p>
-<p>if (length(raw_list) &lt; 2) stop(“Fewer than 2 assets fetched. Cannot proceed.”) #CLEAN THE DATASET</p>
-<p>price_data &lt;- purrr::reduce(raw_list, inner_join, by = “Date”) |&gt; arrange(Date) |&gt; drop_na()</p>
-<section id="rename-columns-to-friendly-ascii-labels-using-labels-map" class="level1">
-<h1>Rename columns to friendly ASCII labels using LABELS map</h1>
-<p>ticker_cols &lt;- gsub(“[^A-Za-z0-9]”, “_”, names(LABELS)) # e.g.&nbsp;“TRY_X” friendly_names &lt;- unname(LABELS) # e.g.&nbsp;“USD/TRY” # Only rename cols that actually exist after merge for (i in seq_along(ticker_cols)) { if (ticker_cols[i] %in% colnames(price_data)) { colnames(price_data)[colnames(price_data) == ticker_cols[i]] &lt;- friendly_names[i] } }</p>
-<p>price_cols &lt;- setdiff(colnames(price_data), “Date”) usd_try_col &lt;- price_cols[grepl(“USD/TRY”, price_cols, fixed = TRUE)] bist_cols &lt;- price_cols[price_cols != usd_try_col]</p>
-<p>cat(sprintf(“Full merged data: %d rows x %d columns (%s to %s)”, nrow(price_data), ncol(price_data), min(price_data<span class="math inline">\(Date), max(price_data\)</span>Date))) #LOG RETURNS (full dataset)</p>
-<p>return_data &lt;- price_data |&gt; mutate(across(all_of(price_cols), ~ log(. / lag(.)), .names = “Ret_{.col}”)) |&gt; slice(-1) |&gt; drop_na()</p>
-<p>ret_cols &lt;- grep(“^Ret_”, colnames(return_data), value = TRUE) usd_ret_col &lt;- ret_cols[grepl(“USD.TRY”, ret_cols)][1] bist_ret_cols &lt;- ret_cols[ret_cols != usd_ret_col]</p>
-<p><br>
+<section id="data-source-selection-why-only-yahoo-finance" class="level1">
+<h1>1. Data Source Selection (Why Only Yahoo Finance?)</h1>
+<p><strong>The Code:</strong></p>
+<p>TICKERS &lt;- c(</p>
+<p>“TRY=X”, # USD/TRY exchange rate</p>
+<p>“XU100.IS”, # BIST 100</p>
+<p>“XBANK.IS”, # BIST Banking</p>
+<p>“XUSIN.IS” # BIST Industrials</p>
+<p>)</p>
+<p># Fetching data using quantmod</p>
+<p>prices_lst &lt;- list()</p>
+<p>for (t in TICKERS) {</p>
+<p>getSymbols(t, from = START_DATE, to = END_DATE, auto.assign = FALSE)</p>
+<p># Extraction of Adjusted Close prices…</p>
+<p>}</p>
+<ul>
+<li><strong>API Stability:</strong> We replaced the TCMB EVDS API with <code>quantmod</code> (Yahoo Finance). EVDS frequently suffers from SSL/TLS handshake failures and connection timeouts on Windows.</li>
+</ul>
+<!-- -->
+<ul>
+<li><p><strong>Consistency:</strong> Fetching all assets (including the USD/TRY exchange rate <code>TRY=X</code>) from a single global source ensures identical timestamps and database formats.</p></li>
+<li><p><strong>10-Year Horizon:</strong> A longer timeframe captures multiple macroeconomic cycles and structural shifts. Yahoo Finance automatically back-adjusts BIST prices for the 2020 denomination (two-zero drop) reform, preserving historical continuity.</p></li>
+</ul>
+<section id="multi-market-synchronization-the-inner_join-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="multi-market-synchronization-the-inner_join-strategy">2. Multi-Market Synchronization (The <code>inner_join</code> Strategy)</h3>
+<p><strong>The Code:</strong></p>
+<p>Merging multiple datasets into a single tibble</p>
+<p>price_data &lt;- prices_lst %&gt;% reduce(inner_join, by = “Date”)</p>
+<ul>
+<li><strong>Calendar Mismatch:</strong> Forex (<code>TRY=X</code>) trades 24/5 globally and remains open during Turkish local or religious holidays, while Borsa Istanbul (BIST) strictly closes.</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>The Solution:</strong> We used <code>inner_join</code> to keep <strong>only the dates common to all assets</strong>. If BIST was closed on a holiday, that day is discarded. This ensures our statistical models compare active trading days only.</li>
+</ul>
+</section>
+<section id="handling-missing-values-drop_na-outlier-philosophy" class="level3">
+<h3 class="anchored" data-anchor-id="handling-missing-values-drop_na-outlier-philosophy">3. Handling Missing Values (<code>drop_na</code>) &amp; Outlier Philosophy</h3>
+<p><strong>The Code:</strong></p>
+<p>Ensuring a clean, gap-free matrix</p>
+<p>price_data &lt;- price_data %&gt;%</p>
+<p>drop_na()</p>
+<ul>
+<li><strong>No Imputation:</strong> In finance, filling missing values using averages (imputation) or carrying prices forward is highly discouraged. It artificially dampens volatility and biases daily returns. Removing incomplete rows with <code>drop_na()</code> is the standard, unbiased approach.</li>
+</ul>
+<!-- -->
+<ul>
+<li><strong>Keeping Outliers:</strong> While statistical tests flag extreme returns (shocks) as outliers, <strong>we did not delete them</strong>. In finance, outliers represent real market crises and circuit-breakers. Removing them would destroy the exact macro-shocks we aim to study.</li>
+</ul>
+</section>
+<section id="mathematical-transformation-logarithmic-returns" class="level3">
+<h3 class="anchored" data-anchor-id="mathematical-transformation-logarithmic-returns">4. Mathematical Transformation: Logarithmic Returns</h3>
+<p><strong>The Code:<br>
+</strong>Transforming raw prices to stationary log returns</p>
+<p>return_data &lt;- price_data %&gt;% mutate(across(starts_with(“Raw_”), ~ log(.x / lag(.x)), .names = “Ret_{.col}”)) %&gt;% rename_with(~ gsub(“Ret_Raw_”, “Ret_”, .x)) %&gt;% drop_na()<br>
 <br>
-<a href="proje_verisi.RData">Download the final processed dataset (.RData)</a></p>
+<strong>Stationarity:</strong> Raw asset prices have random walks and trends, violating the core assumptions of regression and correlation. Logarithmic returns (<span class="math inline">\(R_t = \ln(P_t / P_{t-1})\)</span>) stabilize mean and variance, making the time series stationary.</p>
+<ul>
+<li><p><strong>Time Additivity:</strong> Unlike simple percentage returns, the sum of daily log returns over a period exactly equals the total log return of that entire period.</p></li>
+<li><p><strong>Symmetry:</strong> Log returns are symmetric. A <span class="math inline">\(10\%\)</span> gain followed by a <span class="math inline">\(10\%\)</span> loss returns the asset to its exact starting value, preventing statistical skewness.</p></li>
+</ul>
+</section>
+<section id="multi-scale-normalization-cumulative-base-100-returns" class="level3">
+<h3 class="anchored" data-anchor-id="multi-scale-normalization-cumulative-base-100-returns">5. Multi-Scale Normalization (Cumulative Base-100 Returns)</h3>
+<p><strong>The Code:</strong></p>
+<p><strong>pd_norm &lt;- pd %&gt;% mutate(across(-Date, ~ (.x / first(.x)) * 100))</strong></p>
+<ul>
+<li><p><strong>Scale Incompatibility:</strong> You cannot visually compare USD/TRY (ranging between 1.5 to 32+ TL) with the BIST 100 index (ranging in thousands of points) on the same Y-axis.</p></li>
+<li><p><strong>The Solution:</strong> We normalized all assets to a <strong>Base-100 index</strong> starting on the first day of each period. This scales all asset growth relative to a common starting line (<span class="math inline">\(Price_{t_0} = 100\)</span>), enabling a fair, percentage-based visual comparison.</p></li>
+</ul>
+</section>
+<section id="currency-denomination-usd-denominated-bist" class="level3">
+<h3 class="anchored" data-anchor-id="currency-denomination-usd-denominated-bist">6. Currency Denomination (USD-Denominated BIST)</h3>
+<section id="the-code" class="level4">
+<h4 class="anchored" data-anchor-id="the-code">The Code:</h4>
+<p>BIST100_USD = <code>XU100.IS</code> / <code>TRY=X</code></p>
+<ul>
+<li><p><strong>Eliminating the Inflation Illusion:</strong> In high-inflation economies, stock indices in local currency (TRY) almost always trend upward. However, these “rallies” are often nominal illusions driven by currency depreciation.</p></li>
+<li><p><strong>The Solution:</strong> Dividing BIST prices by the USD/TRY rate reveals the <strong>USD-denominated (real) value</strong> of Turkish equities. This shows whether the market actually grew in global purchasing power or simply inflated.</p></li>
+</ul>
+</section>
+</section>
+<section id="access-our-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="access-our-dataset">Access Our Dataset</h3>
+<p>You can access and download the fully processed and merged financial dataset used in this project by clicking the link below:</p>
+<p><a href="bist_usd_data.RData">📥 Download Final Dataset (.RData)</a></p>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

@@ -1,7 +1,8 @@
 ---
 title: "Analysis"
-#Key Takeaways
-Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
+---
+
+#Key Takeaways Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
 
 The 2011–2020 Depreciation Cycle: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (as shown by the USD/TRY parity doubling and tripling) was generally correlated with negative USD-denominated returns, with the Banking sector consistently being the most vulnerable to exchange rate shocks.
 
@@ -11,59 +12,34 @@ Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typic
 
 Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.
 
-#Correlation Matrix (full period)
-cat("\n?????? Full-Period Log-Return Correlation Matrix ??????\n")
-cor_mat <- cor(return_data[, ret_cols], use = "complete.obs")
-rownames(cor_mat) <- colnames(cor_mat) <- gsub("^Ret_", "", rownames(cor_mat))
-print(round(cor_mat, 4))
+#Correlation Matrix (full period) cat("\n?????? Full-Period Log-Return Correlation Matrix ??????\n") cor_mat \<- cor(return_data\[, ret_cols\], use = "complete.obs") rownames(cor_mat) \<- colnames(cor_mat) \<- gsub("\^Ret\_", "", rownames(cor_mat)) print(round(cor_mat, 4))
 
-usd_cor_row <- grep("USD.TRY", rownames(cor_mat), value = TRUE)[1]
-cat("\n>> USD/TRY correlations with BIST indices:\n")
-usd_cors <- sort(cor_mat[usd_cor_row, ], decreasing = TRUE)
-print(round(usd_cors[names(usd_cors) != usd_cor_row], 4))
-  The matrix below shows the overall 20-year correlation between USD/TRY returns and BIST indices.
+usd_cor_row \<- grep("USD.TRY", rownames(cor_mat), value = TRUE)\[1\] cat("\n\>\> USD/TRY correlations with BIST indices:\n") usd_cors \<- sort(cor_mat\[usd_cor_row, \], decreasing = TRUE) print(round(usd_cors\[names(usd_cors) != usd_cor_row\], 4)) The matrix below shows the overall 20-year correlation between USD/TRY returns and BIST indices.
 
 # Period-Based Analysis
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## 2006-2010
+
 Below are the visual insights for the first analysis window:
 
-![Cumulative % Growth (2006-2010)](grafik1.png)
-![Daily Volatility & Shocks (2006-2010)](grafik2.png)
-![USD/TRY vs BIST Scatter (2006-2010)](grafik3.png)
-![USD-Denominated BIST vs USD/TRY Parity (2006-2010)](grafik4.png)
+![Cumulative % Growth (2006-2010)](grafik1.png) ![Daily Volatility & Shocks (2006-2010)](grafik2.png) ![USD/TRY vs BIST Scatter (2006-2010)](grafik3.png) ![USD-Denominated BIST vs USD/TRY Parity (2006-2010)](grafik4.png)
 
 ## 2011-2015
+
 Analysis of the second 5-year period:
 
-![Cumulative % Growth (2011-2015)](grafik5.png)
-![Daily Volatility & Shocks (2011-2015)](grafik6.png)
-![USD/TRY vs BIST Scatter (2011-2015)](grafik7.png)
-![USD-Denominated BIST vs USD/TRY Parity (2011-2015)](grafik8.png)
+![Cumulative % Growth (2011-2015)](grafik5.png) ![Daily Volatility & Shocks (2011-2015)](grafik6.png) ![USD/TRY vs BIST Scatter (2011-2015)](grafik7.png) ![USD-Denominated BIST vs USD/TRY Parity (2011-2015)](grafik8.png)
 
 ## 2016-2020
+
 Market dynamics during the currency shocks of late 2010s:
 
-![Cumulative % Growth (2016-2020)](grafik9.png)
-![Daily Volatility & Shocks (2016-2020)](grafik10.png)
-![USD/TRY vs BIST Scatter (2016-2020)](grafik11.png)
-![USD-Denominated BIST vs USD/TRY Parity (2016-2020)](grafik12.png)
+![Cumulative % Growth (2016-2020)](grafik9.png) ![Daily Volatility & Shocks (2016-2020)](grafik10.png) ![USD/TRY vs BIST Scatter (2016-2020)](grafik11.png) ![USD-Denominated BIST vs USD/TRY Parity (2016-2020)](grafik12.png)
 
 ## 2021-Present
+
 Recent structural shifts and capital preservation trends:
 
-![Cumulative % Growth (2021-2026)](grafik13.png)
-![Daily Volatility & Shocks (2021-2026)](grafik14.png)
-![USD/TRY vs BIST Scatter (2021-2026)](grafik15.png)
-![USD-Denominated BIST vs USD/TRY Parity (2021-2026)](grafik16.png)
-
+![Cumulative % Growth (2021-2026)](grafik13.png) ![Daily Volatility & Shocks (2021-2026)](grafik14.png) ![USD/TRY vs BIST Scatter (2021-2026)](grafik15.png) ![USD-Denominated BIST vs USD/TRY Parity (2021-2026)](grafik16.png)
 :::
-
-
-
-
-
----
-

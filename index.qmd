@@ -7,15 +7,13 @@ sidebar: false
 
 1.  Enes Furkan Altın 2220469011 https://github.com/altinefurkan
 
-2.  Mehmet Öksüzoğlu 2220469036  (github linkiniz)
+2.  Mehmet Öksüzoğlu 2220469036 [(github)](https://github.com/mehmetokszgl)
 
 3.  Arda Yeniçulha 2220469061 (github linkiniz)
 
 Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 
-Project Description: This study aims to investigate the correlation between USD/TRY exchange rate movements and the performance of various sectoral indices in Turkey. We are specifically analyzing whether currency volatility serves as a significant driver for returns in the BIST 100, Electricity (XU:ELEKT), and Industrial (XU:SIN) sectors.
- #Data Set
-This study is built upon a comprehensive financial dataset spanning a 20-year period from January 2006 to May 2026. The primary variables analyzed include:
+Project Description: This study aims to investigate the correlation between USD/TRY exchange rate movements and the performance of various sectoral indices in Turkey. We are specifically analyzing whether currency volatility serves as a significant driver for returns in the BIST 100, Electricity (XU:ELEKT), and Industrial (XU:SIN) sectors. #Data Set This study is built upon a comprehensive financial dataset spanning a 20-year period from January 2006 to May 2026. The primary variables analyzed include:
 
 USD/TRY Exchange Rate: The core indicator used to measure currency volatility and macroeconomic stability.
 
@@ -25,9 +23,7 @@ Sectoral Indices: BIST Banking (XBANK.IS) and BIST Industrials (XUSIN.IS) were s
 
 Source & Selection: While the team initially attempted to utilize the Central Bank (TCMB) EVDS system, we pivoted to Yahoo Finance due to the technical complexities of EVDS API integration for a two-decade scope.
 
-Data Preprocessing: Raw time series were cleaned through inner joins to ensure aligned trading days, filtered for missing values (NAs), and transformed into daily log returns for robust statistical analysis.
- #Key Takeaways
-Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
+Data Preprocessing: Raw time series were cleaned through inner joins to ensure aligned trading days, filtered for missing values (NAs), and transformed into daily log returns for robust statistical analysis. #Key Takeaways Long-Term Comparative Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and Borsa Istanbul (BIST) indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to identify structural shifts in market behavior.
 
 The 2011–2020 Depreciation Cycle: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (as shown by the USD/TRY parity doubling and tripling) was generally correlated with negative USD-denominated returns, with the Banking sector consistently being the most vulnerable to exchange rate shocks.
 

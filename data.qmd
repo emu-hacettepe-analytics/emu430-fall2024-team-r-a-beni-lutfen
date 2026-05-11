@@ -1,118 +1,47 @@
 ---
 title: "Data"
-#PACKAGE BOOTSTRAP
-required_pkgs <- c("quantmod", "tidyverse", "lubridate", "patchwork", "scales")
+---
 
-invisible(lapply(required_pkgs, function(pkg) {
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    message("Installing: ", pkg)
-    install.packages(pkg, repos = "https://cloud.r-project.org", quiet = TRUE)
-  }
-}))
+# PACKAGE BOOTSTRAP 
 
-suppressPackageStartupMessages({
-  library(quantmod)
-  library(tidyverse)
-  library(lubridate)
-  library(patchwork)
-  library(scales)
-})
+required_pkgs \<- c("quantmod", "tidyverse", "lubridate", "patchwork", "scales")
+
+invisible(lapply(required_pkgs, function(pkg) { if (!requireNamespace(pkg, quietly = TRUE)) { message("Installing: ", pkg) install.packages(pkg, repos = "[https://cloud.r-project.org",](https://cloud.r-project.org",) quiet = TRUE) } }))
+
+suppressPackageStartupMessages({ library(quantmod) library(tidyverse) library(lubridate) library(patchwork) library(scales) })
 
 cat("All packages loaded.\n")
-#PARAMETERS
-START_DATE <- as.Date("2006-01-01")
-END_DATE   <- Sys.Date()
 
-TICKERS <- c(
-  "TRY=X",    # USD/TRY exchange rate
-  "XU100.IS", # BIST 100
-  "XBANK.IS", # BIST Banking
-  "XUSIN.IS"  # BIST Industrials
-)
+# PARAMETERS 
 
-LABELS <- c(
-  "TRY=X"    = "USD/TRY",
-  "XU100.IS" = "BIST 100",
-  "XBANK.IS" = "BIST Banking",
-  "XUSIN.IS" = "BIST Industrials"
-)
-#TIME
-PERIODS <- list(
-  list(label = "2006-2010", start = as.Date("2006-01-01"), end = as.Date("2010-12-31")),
-  list(label = "2011-2015", start = as.Date("2011-01-01"), end = as.Date("2015-12-31")),
-  list(label = "2016-2020", start = as.Date("2016-01-01"), end = as.Date("2020-12-31")),
-  list(label = "2021-Present", start = as.Date("2021-01-01"), end = END_DATE)
-#DATA FETCHING
-fetch_one <- function(ticker, from, to) {
-  env <- new.env()
-  result <- suppressWarnings(
-    tryCatch(
-      getSymbols(ticker, src = "yahoo", from = from, to = to,
-                 env = env, auto.assign = TRUE, warnings = FALSE),
-      error = function(e) NULL
-    )
-  )
-  if (is.null(result)) {
-    warning(sprintf("Could not fetch %s. Skipping.", ticker))
-    return(NULL)
-  }
-  xts_obj <- get(ticker, envir = env)
-  adj_col  <- grep("Adjusted", colnames(xts_obj), value = TRUE)
-  if (length(adj_col) == 0) return(NULL)
-  
-  col_name <- gsub("[^A-Za-z0-9]", "_", ticker)
-  tibble(Date = as.Date(index(xts_obj)),
-         !!col_name := as.numeric(xts_obj[, adj_col]))
-}
+START_DATE \<- as.Date("2006-01-01") END_DATE \<- Sys.Date()
+
+TICKERS \<- c( "TRY=X", \# USD/TRY exchange rate "XU100.IS", \# BIST 100 "XBANK.IS", \# BIST Banking "XUSIN.IS"\# BIST Industrials )
+
+LABELS \<- c( "TRY=X" = "USD/TRY", "XU100.IS" = "BIST 100", "XBANK.IS" = "BIST Banking", "XUSIN.IS" = "BIST Industrials" ) #TIME PERIODS \<- list( list(label = "2006-2010", start = as.Date("2006-01-01"), end = as.Date("2010-12-31")), list(label = "2011-2015", start = as.Date("2011-01-01"), end = as.Date("2015-12-31")), list(label = "2016-2020", start = as.Date("2016-01-01"), end = as.Date("2020-12-31")), list(label = "2021-Present", start = as.Date("2021-01-01"), end = END_DATE) #DATA FETCHING fetch_one \<- function(ticker, from, to) { env \<- new.env() result \<- suppressWarnings( tryCatch( getSymbols(ticker, src = "yahoo", from = from, to = to, env = env, auto.assign = TRUE, warnings = FALSE), error = function(e) NULL ) ) if (is.null(result)) { warning(sprintf("Could not fetch %s. Skipping.", ticker)) return(NULL) } xts_obj \<- get(ticker, envir = env) adj_col \<- grep("Adjusted", colnames(xts_obj), value = TRUE) if (length(adj_col) == 0) return(NULL)
+
+col_name \<- gsub("\[\^A-Za-z0-9\]", "\_", ticker) tibble(Date = as.Date(index(xts_obj)), !!col_name := as.numeric(xts_obj\[, adj_col\])) }
 
 cat("\nFetching full history from Yahoo Finance...\n")
 
-raw_list <- lapply(TICKERS, function(tk) {
-  cat(sprintf("  Fetching %-12s ... ", tk))
-  df <- fetch_one(tk, START_DATE, END_DATE)
-  if (!is.null(df)) cat(sprintf("%d rows\n", nrow(df))) else cat("FAILED\n")
-  df
-})
-names(raw_list) <- TICKERS
-raw_list <- Filter(Negate(is.null), raw_list)
+raw_list \<- lapply(TICKERS, function(tk) { cat(sprintf(" Fetching %-12s ... ", tk)) df \<- fetch_one(tk, START_DATE, END_DATE) if (!is.null(df)) cat(sprintf("%d rows\n", nrow(df))) else cat("FAILED\n") df }) names(raw_list) \<- TICKERS raw_list \<- Filter(Negate(is.null), raw_list)
 
-if (length(raw_list) < 2)
-  stop("Fewer than 2 assets fetched. Cannot proceed.")
-#CLEAN THE DATASET
+if (length(raw_list) \< 2) stop("Fewer than 2 assets fetched. Cannot proceed.") #CLEAN THE DATASET
 
-price_data <- purrr::reduce(raw_list, inner_join, by = "Date") |>
-  arrange(Date) |>
-  drop_na()
+price_data \<- purrr::reduce(raw_list, inner_join, by = "Date") \|\> arrange(Date) \|\> drop_na()
 
 # Rename columns to friendly ASCII labels using LABELS map
-ticker_cols  <- gsub("[^A-Za-z0-9]", "_", names(LABELS))   # e.g. "TRY_X"
-friendly_names <- unname(LABELS)                             # e.g. "USD/TRY"
-# Only rename cols that actually exist after merge
-for (i in seq_along(ticker_cols)) {
-  if (ticker_cols[i] %in% colnames(price_data)) {
-    colnames(price_data)[colnames(price_data) == ticker_cols[i]] <- friendly_names[i]
-  }
-}
 
-price_cols   <- setdiff(colnames(price_data), "Date")
-usd_try_col  <- price_cols[grepl("USD/TRY", price_cols, fixed = TRUE)]
-bist_cols    <- price_cols[price_cols != usd_try_col]
+ticker_cols \<- gsub("\[\^A-Za-z0-9\]", "\_", names(LABELS)) \# e.g. "TRY_X" friendly_names \<- unname(LABELS) \# e.g. "USD/TRY" \# Only rename cols that actually exist after merge for (i in seq_along(ticker_cols)) { if (ticker_cols\[i\] %in% colnames(price_data)) { colnames(price_data)\[colnames(price_data) == ticker_cols\[i\]\] \<- friendly_names\[i\] } }
 
-cat(sprintf("Full merged data: %d rows x %d columns (%s to %s)\n",
-            nrow(price_data), ncol(price_data),
-            min(price_data$Date), max(price_data$Date)))
-#LOG RETURNS (full dataset)
+price_cols \<- setdiff(colnames(price_data), "Date") usd_try_col \<- price_cols\[grepl("USD/TRY", price_cols, fixed = TRUE)\] bist_cols \<- price_cols\[price_cols != usd_try_col\]
 
-return_data <- price_data |>
-  mutate(across(all_of(price_cols),
-                ~ log(. / lag(.)),
-                .names = "Ret_{.col}")) |>
-  slice(-1) |>
-  drop_na()
+cat(sprintf("Full merged data: %d rows x %d columns (%s to %s)\n", nrow(price_data), ncol(price_data), min(price_data$Date), max(price_data$Date))) #LOG RETURNS (full dataset)
 
-ret_cols     <- grep("^Ret_", colnames(return_data), value = TRUE)
-usd_ret_col  <- ret_cols[grepl("USD.TRY", ret_cols)][1]
-bist_ret_cols <- ret_cols[ret_cols != usd_ret_col]
+return_data \<- price_data \|\> mutate(across(all_of(price_cols), \~ log(. / lag(.)), .names = "Ret\_{.col}")) \|\> slice(-1) \|\> drop_na()
 
----
+ret_cols \<- grep("\^Ret\_", colnames(return_data), value = TRUE) usd_ret_col \<- ret_cols\[grepl("USD.TRY", ret_cols)\]\[1\] bist_ret_cols \<- ret_cols\[ret_cols != usd_ret_col\]
+
+\
+\
 [Download the final processed dataset (.RData)](proje_verisi.RData)

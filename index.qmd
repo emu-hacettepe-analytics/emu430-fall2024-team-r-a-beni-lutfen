@@ -9,7 +9,7 @@ sidebar: false
 
 3.  Arda Yeniçulha 2220469061 [(github)](https://github.com/yeniculhamehmetarda)
 
-# ABOUT PROJECT
+# ABOUT THE PROJECT
 
 Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 

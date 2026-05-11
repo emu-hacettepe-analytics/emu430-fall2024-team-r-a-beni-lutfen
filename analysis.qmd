@@ -28,18 +28,39 @@ print(round(usd_cors[names(usd_cors) != usd_cor_row], 4))
 ::: {.panel-tabset}
 
 ## 2006-2010
-(Bu kısma Mehmet'in kodundan bu periyoda ait grafikleri koy)
+Below are the visual insights for the first analysis window:
+
+![Cumulative % Growth (2006-2010)](grafik1.png)
+![Daily Volatility & Shocks (2006-2010)](grafik2.png)
+![USD/TRY vs BIST Scatter (2006-2010)](grafik3.png)
+![USD-Denominated BIST vs USD/TRY Parity (2006-2010)](grafik4.png)
 
 ## 2011-2015
-(Buraya ilgili grafikleri koy)
+Analysis of the second 5-year period:
+
+![Cumulative % Growth (2011-2015)](grafik5.png)
+![Daily Volatility & Shocks (2011-2015)](grafik6.png)
+![USD/TRY vs BIST Scatter (2011-2015)](grafik7.png)
+![USD-Denominated BIST vs USD/TRY Parity (2011-2015)](grafik8.png)
 
 ## 2016-2020
-(Buraya ilgili grafikleri koy)
+Market dynamics during the currency shocks of late 2010s:
+
+![Cumulative % Growth (2016-2020)](grafik9.png)
+![Daily Volatility & Shocks (2016-2020)](grafik10.png)
+![USD/TRY vs BIST Scatter (2016-2020)](grafik11.png)
+![USD-Denominated BIST vs USD/TRY Parity (2016-2020)](grafik12.png)
 
 ## 2021-Present
-(En önemli dönemin grafiklerini buraya koy)
+Recent structural shifts and capital preservation trends:
+
+![Cumulative % Growth (2021-2026)](grafik13.png)
+![Daily Volatility & Shocks (2021-2026)](grafik14.png)
+![USD/TRY vs BIST Scatter (2021-2026)](grafik15.png)
+![USD-Denominated BIST vs USD/TRY Parity (2021-2026)](grafik16.png)
 
 :::
+
 
 
 

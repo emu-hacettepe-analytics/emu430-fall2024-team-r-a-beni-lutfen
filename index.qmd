@@ -67,9 +67,4 @@ This project used **Claude (Anthropic)** to assist in generating the R analysis 
 
 :::
 
----
-
-## **Detailed Graphical Analysis**
-...
-
 

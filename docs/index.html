@@ -283,7 +283,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ai-assistance-disclosure" id="toc-ai-assistance-disclosure" class="nav-link active" data-scroll-target="#ai-assistance-disclosure"><strong>AI Assistance Disclosure</strong></a></li>
+  <li><a href="#detailed-graphical-analysis" id="toc-detailed-graphical-analysis" class="nav-link" data-scroll-target="#detailed-graphical-analysis"><strong>Detailed Graphical Analysis</strong></a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -328,8 +335,54 @@ ul.task-list li input[type="checkbox"] {
 <p>Structural Divergence (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite the USD/TRY parity increasing six-fold (from 100 to over 600), BIST indices provided a robust hedge against hyper-depreciation, yielding positive USD-denominated returns for the first time in a decade.</p>
 <p>Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typically offered more stability across all cycles, the Banking sector (XBANK.IS) displayed extreme volatility but showed a surprising recovery in USD terms during the 2021–2026 period.</p>
 <p>Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.</p>
+<hr>
+<section id="ai-assistance-disclosure" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ai-assistance-disclosure"><strong>AI Assistance Disclosure</strong></h2>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🤖 AI-Assisted Code Generation — Click to View Prompts
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This project used <strong>Claude (Anthropic)</strong> to assist in generating the R analysis scripts. Below are the exact prompts submitted.</p>
+<hr>
+<p><strong>Prompt 1 — Data Pipeline &amp; Base Visualizations</strong></p>
+<blockquote class="blockquote">
+<p><strong>Role:</strong> You are an Expert Financial Data Scientist and R Developer.<br>
+<strong>Task:</strong> Write a complete, robust, and reproducible R script for a financial data analytics project.<br>
+<strong>Core Strategy &amp; Data Source:</strong> Abandon any previous use of the TCMB EVDS API. You must use ONLY <strong>Yahoo Finance</strong> (via <code>quantmod</code> or <code>tidyquant</code>) to fetch all historical data.<br>
+<strong>Required Assets (Yahoo Finance Tickers):</strong> USD/TRY Exchange Rate: <code>TRY=X</code>, BIST 100 Index: <code>XU100.IS</code>, BIST Banking Index: <code>XBANK.IS</code>, BIST Electricity Index: <code>XELKT.IS</code>, BIST Industrials Index: <code>XUSIN.IS</code>, BIST All Shares Index: <code>XTUMY.IS</code><br>
+<strong>Timeframe:</strong> Fetch data going back exactly <strong>10 years</strong> from today’s dynamic date (<code>Sys.Date()</code>).<br>
+<strong>Data Processing Requirements:</strong> Use <code>tidyverse</code> principles. Extract only the “Adjusted Close” prices. Merge all datasets by <code>Date</code> into a single, clean dataframe using an inner join. Drop any rows with <code>NA</code> values. Calculate daily logarithmic returns for all assets.<br>
+<strong>Analytical &amp; Visual Deliverables:</strong> (1) Correlation Matrix of log returns. (2) Cumulative percentage growth chart starting from 0%. (3) Single shared line chart via <code>ggplot2</code> with percentage Y-axis, distinct colors, legend, title, and axis labels.<br>
+<strong>Constraints:</strong> No Turkish characters in variable names, comments, or plot labels. Output as one cohesive, copy-pasteable code block.</p>
+</blockquote>
+<hr>
+<p><strong>Prompt 2 — Visual &amp; Analytical Improvements</strong></p>
+<blockquote class="blockquote">
+<p>Please implement the following improvements to make the 4 plots more professional and suitable for a financial report:<br>
+(1) <strong>Scatter Plot with OLS:</strong> Limit x-axis to exclude extreme 1% outliers; annotate each facet with the correlation coefficient (r) or R².<br>
+(2) <strong>Cumulative Percentage Growth:</strong> Add “(TRY-Denominated / Nominal)” to the title/subtitle to clarify this is unadjusted local-currency growth.<br>
+(3) <strong>Faceted USD vs.&nbsp;Parity Plot:</strong> Replace Yahoo Finance tickers in legend with human-readable labels like “BIST Banking (USD)”, “BIST 100 (USD)”, “BIST Industrials (USD)”.<br>
+(4) <strong>Daily Log Returns:</strong> Rename title to “Daily Volatility and Market Shocks”; add a vertical dashed <code>geom_vline</code> at August 2018 with annotation “2018 Currency Shock”.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="detailed-graphical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="detailed-graphical-analysis"><strong>Detailed Graphical Analysis</strong></h2>
+<p>…</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

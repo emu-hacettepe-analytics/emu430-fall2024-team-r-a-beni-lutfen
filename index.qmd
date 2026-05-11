@@ -30,3 +30,46 @@ Structural Divergence (2021–2026): In a historical anomaly, the most recent pe
 Sectoral Sensitivity and Resilience: While the Industrial index (XUSIN.IS) typically offered more stability across all cycles, the Banking sector (XBANK.IS) displayed extreme volatility but showed a surprising recovery in USD terms during the 2021–2026 period.
 
 Investment Implications: The analysis concludes that while exchange rate spikes historically triggered market sell-offs, the current economic regime has transformed the Turkish equity market into a primary vehicle for capital preservation against extreme currency volatility.
+
+
+
+---
+
+## **AI Assistance Disclosure** {.unnumbered}
+
+::: {.callout-note collapse="true" icon="false"}
+## 🤖 AI-Assisted Code Generation — Click to View Prompts
+
+This project used **Claude (Anthropic)** to assist in generating the R analysis scripts. Below are the exact prompts submitted.
+
+---
+
+**Prompt 1 — Data Pipeline & Base Visualizations**
+
+> **Role:** You are an Expert Financial Data Scientist and R Developer.  
+> **Task:** Write a complete, robust, and reproducible R script for a financial data analytics project.  
+> **Core Strategy & Data Source:** Abandon any previous use of the TCMB EVDS API. You must use ONLY **Yahoo Finance** (via `quantmod` or `tidyquant`) to fetch all historical data.  
+> **Required Assets (Yahoo Finance Tickers):** USD/TRY Exchange Rate: `TRY=X`, BIST 100 Index: `XU100.IS`, BIST Banking Index: `XBANK.IS`, BIST Electricity Index: `XELKT.IS`, BIST Industrials Index: `XUSIN.IS`, BIST All Shares Index: `XTUMY.IS`  
+> **Timeframe:** Fetch data going back exactly **10 years** from today's dynamic date (`Sys.Date()`).  
+> **Data Processing Requirements:** Use `tidyverse` principles. Extract only the "Adjusted Close" prices. Merge all datasets by `Date` into a single, clean dataframe using an inner join. Drop any rows with `NA` values. Calculate daily logarithmic returns for all assets.  
+> **Analytical & Visual Deliverables:** (1) Correlation Matrix of log returns. (2) Cumulative percentage growth chart starting from 0%. (3) Single shared line chart via `ggplot2` with percentage Y-axis, distinct colors, legend, title, and axis labels.  
+> **Constraints:** No Turkish characters in variable names, comments, or plot labels. Output as one cohesive, copy-pasteable code block.
+
+---
+
+**Prompt 2 — Visual & Analytical Improvements**
+
+> Please implement the following improvements to make the 4 plots more professional and suitable for a financial report:  
+> (1) **Scatter Plot with OLS:** Limit x-axis to exclude extreme 1% outliers; annotate each facet with the correlation coefficient (r) or R².  
+> (2) **Cumulative Percentage Growth:** Add "(TRY-Denominated / Nominal)" to the title/subtitle to clarify this is unadjusted local-currency growth.  
+> (3) **Faceted USD vs. Parity Plot:** Replace Yahoo Finance tickers in legend with human-readable labels like "BIST Banking (USD)", "BIST 100 (USD)", "BIST Industrials (USD)".  
+> (4) **Daily Log Returns:** Rename title to "Daily Volatility and Market Shocks"; add a vertical dashed `geom_vline` at August 2018 with annotation "2018 Currency Shock".
+
+:::
+
+---
+
+## **Detailed Graphical Analysis**
+...
+
+

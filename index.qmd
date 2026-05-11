@@ -9,6 +9,8 @@ sidebar: false
 
 3.  Arda Yeniçulha 2220469061 [(github)](https://github.com/yeniculhamehmetarda)
 
+# ABOUT PROJECT
+
 Project Title: The Quantitative Impact of USD/TRY Fluctuations on Borsa Istanbul (BIST) Indices.
 
 Project Description: This study aims to investigate the correlation between USD/TRY exchange rate movements and the performance of various sectoral indices in Turkey. We are specifically analyzing whether currency volatility serves as a significant driver for returns in the BIST 100, Electricity (XU:ELEKT), and Industrial (XU:SIN) sectors. #Data Set This study is built upon a comprehensive financial dataset spanning a 20-year period from January 2006 to May 2026. The primary variables analyzed include:
@@ -35,7 +37,7 @@ Investment Implications: The analysis concludes that while exchange rate spikes 
 
 ---
 
-## **AI Assistance Disclosure** {.unnumbered}
+## **AI Assistance Disclosure** {.unnumbered .toc-exclude}
 
 ::: {.callout-note collapse="true" icon="false"}
 ## 🤖 AI-Assisted Code Generation — Click to View Prompts

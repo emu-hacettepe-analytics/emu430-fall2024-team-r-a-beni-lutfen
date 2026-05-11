@@ -63,12 +63,7 @@ drop_na()
 **The Code:\
 **Transforming raw prices to stationary log returns
 
-return_data \<- price_data %\>%
-mutate(across(starts_with("Raw\_"),
-\~ log(.x / lag(.x)),
-.names = "Ret\_{.col}")) %\>%
-rename_with(\~ gsub("Ret_Raw\_", "Ret\_", .x)) %\>%
-drop_na()\
+return_data \<- price_data %\>% mutate(across(starts_with("Raw\_"), \~ log(.x / lag(.x)), .names = "Ret\_{.col}")) %\>% rename_with(\~ gsub("Ret_Raw\_", "Ret\_", .x)) %\>% drop_na()\
 \
 **Stationarity:** Raw asset prices have random walks and trends, violating the core assumptions of regression and correlation. Logarithmic returns ($R_t = \ln(P_t / P_{t-1})$) stabilize mean and variance, making the time series stationary.
 

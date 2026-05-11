@@ -18,7 +18,7 @@
     "href": "analysis.html",
     "title": "Analysis",
     "section": "",
-    "text": "Key Takeaways\n\n20-Year Historical Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and BIST indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to detect structural shifts.\nThe Regime-Dependent Banking Pivot (Your Core Insight): The Banking sector (XBANK.IS) exhibits a strong regime-dependent behavior. Under stable/tight monetary regimes where the exchange rate is controlled, Banking significantly outperforms other sectors due to predictable margins. Conversely, during rapid currency depreciation or highly volatile exchange rate regimes, Banking severely underperforms and lags behind other indices due to balance sheet shocks.\nThe 2011–2020 Depreciation Drag: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (USD/TRY doubling and tripling) was highly correlated with negative USD-denominated returns, leaving the vulnerable Banking sector at its historical lows.\nStructural Break & Equity Hedge (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite a massive six-fold increase in USD/TRY (from 100 to over 600), BIST indices broke historical patterns and served as a robust hedge against hyper-depreciation, yielding positive USD-denominated returns.\nIndustrial Resilience vs. Banking Volatility: Across all analyzed cycles, the Industrial index (XUSIN.IS) consistently offered the most stable hedge against currency inflation, while the Banking sector (XBANK.IS) remained the most volatile but staged a dramatic valuation recovery in USD terms post-2021.\n\n\n\nPeriod-Based Analysis\n\n2006-20102011-20152016-20202021-Present\n\n\nBelow are the visual insights for the first analysis window:\n   \n\n\nAnalysis of the second 5-year period:\n   \n\n\nMarket dynamics during the currency shocks of late 2010s:\n   \n\n\nRecent structural shifts and capital preservation trends:\n   \n\n\n\n\n\n\n\n Back to top"
+    "text": "20-Year Historical Scope: This study analyzes the quantitative relationship between the USD/TRY exchange rate and BIST indices across a 20-year span (2006–2026), utilizing 5-year analysis windows to detect structural shifts.\nThe Regime-Dependent Banking Pivot (Your Core Insight): The Banking sector (XBANK.IS) exhibits a strong regime-dependent behavior. Under stable/tight monetary regimes where the exchange rate is controlled, Banking significantly outperforms other sectors due to predictable margins. Conversely, during rapid currency depreciation or highly volatile exchange rate regimes, Banking severely underperforms and lags behind other indices due to balance sheet shocks.\nThe 2011–2020 Depreciation Drag: During the 2011–2015 and 2016–2020 periods, significant currency depreciation (USD/TRY doubling and tripling) was highly correlated with negative USD-denominated returns, leaving the vulnerable Banking sector at its historical lows.\nStructural Break & Equity Hedge (2021–2026): In a historical anomaly, the most recent period (2021–2026) shows that despite a massive six-fold increase in USD/TRY (from 100 to over 600), BIST indices broke historical patterns and served as a robust hedge against hyper-depreciation, yielding positive USD-denominated returns.\nIndustrial Resilience vs. Banking Volatility: Across all analyzed cycles, the Industrial index (XUSIN.IS) consistently offered the most stable hedge against currency inflation, while the Banking sector (XBANK.IS) remained the most volatile but staged a dramatic valuation recovery in USD terms post-2021."
   },
   {
     "objectID": "data.html",
@@ -89,5 +89,33 @@
     "title": "Data",
     "section": "6. Currency Denomination (USD-Denominated BIST)",
     "text": "6. Currency Denomination (USD-Denominated BIST)\n\nThe Code:\nBIST100_USD = XU100.IS / TRY=X\n\nEliminating the Inflation Illusion: In high-inflation economies, stock indices in local currency (TRY) almost always trend upward. However, these “rallies” are often nominal illusions driven by currency depreciation.\nThe Solution: Dividing BIST prices by the USD/TRY rate reveals the USD-denominated (real) value of Turkish equities. This shows whether the market actually grew in global purchasing power or simply inflated.\n\n\n\nAccess Our Dataset\nYou can access and download the fully processed and merged financial dataset used in this project by clicking the link below:\n📥 Download Final Dataset (.RData)"
+  },
+  {
+    "objectID": "analysis.html#section",
+    "href": "analysis.html#section",
+    "title": "Analysis",
+    "section": "2006-2010",
+    "text": "2006-2010\nBelow are the visual insights for the first analysis window:"
+  },
+  {
+    "objectID": "analysis.html#section-1",
+    "href": "analysis.html#section-1",
+    "title": "Analysis",
+    "section": "2011-2015",
+    "text": "2011-2015\nAnalysis of the second 5-year period:"
+  },
+  {
+    "objectID": "analysis.html#section-2",
+    "href": "analysis.html#section-2",
+    "title": "Analysis",
+    "section": "2016-2020",
+    "text": "2016-2020\nMarket dynamics during the currency shocks of late 2010s:"
+  },
+  {
+    "objectID": "analysis.html#present",
+    "href": "analysis.html#present",
+    "title": "Analysis",
+    "section": "2021-Present",
+    "text": "2021-Present\nRecent structural shifts and capital preservation trends:"
   }
 ]

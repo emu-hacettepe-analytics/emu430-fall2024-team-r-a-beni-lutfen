@@ -1,5 +1,10 @@
 ---
 title: "Analysis"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
 ---
 
 # Key Takeaways
